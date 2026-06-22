@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { AreaChart, Area, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { TrendingUp, TrendingDown, RefreshCw, Key, AlertCircle, ChevronRight, X, ChevronDown, Calendar, Lock } from "lucide-react";
 
-const TT = { background: "white", border: "1px solid #DDD5C4", borderRadius: 8, fontSize: 12 };
+const TT = { background: "white", border: "1px solid #DADCE0", borderRadius: 4, fontSize: 12, color: "#202124" };
 const PRESETS = [
   { label: "Last 7 days", days: 7 },
   { label: "Last 28 days", days: 28 },
@@ -154,7 +154,7 @@ function AIInsights({ data, clientName }: { data: any; clientName: string }) {
         <>
           {insights.headline && <div className="insight-headline">{insights.headline}</div>}
           {insights.focusStatement && (
-            <div style={{ background: "#1C1C1C", color: "#C9A96E", padding: "12px 16px", borderRadius: 8, fontSize: 13, fontWeight: 500 }}>
+            <div style={{ background: "#E8F0FE", color: "#1A73E8", padding: "12px 16px", borderRadius: 8, fontSize: 13, fontWeight: 500 }}>
               🎯 {insights.focusStatement}
             </div>
           )}
@@ -164,8 +164,8 @@ function AIInsights({ data, clientName }: { data: any; clientName: string }) {
               <button key={t} onClick={() => setTab(t)} style={{
                 padding: "8px 14px", border: "none", background: "none", cursor: "pointer",
                 fontSize: 12, fontWeight: 600, fontFamily: "Inter, sans-serif",
-                color: tab === t ? "var(--text)" : "var(--text-muted)",
-                borderBottom: tab === t ? "2px solid var(--gold)" : "2px solid transparent",
+                color: tab === t ? "#1A73E8" : "#5F6368",
+                borderBottom: tab === t ? "2px solid #1A73E8" : "2px solid transparent",
                 textTransform: "capitalize" as const,
               }}>{t === "insights" ? "Brightspots & Issues" : t === "opportunities" ? "Quick Wins" : "Action Plan"}</button>
             ))}
@@ -322,7 +322,7 @@ function PosTag({ v }: { v: number }) {
 
 function DeviceBars({ devices }: { devices: any[] }) {
   const total = devices.reduce((s, d) => s + d.clicks, 0) || 1;
-  const colors = ["#2A6B5E", "#C9A96E", "#1C1C1C"];
+  const colors = ["#4285F4", "#34A853", "#FBBC04"];
   return (
     <div className="device-row">
       {devices.map((d, i) => (
@@ -403,9 +403,11 @@ export default function Dashboard() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <div className="brand-label">SEO Portal</div>
-          <div className="brand-name">Limadata</div>
-          <div className="brand-rule" />
+          <div className="brand-logo">L</div>
+          <div className="brand-text">
+            <div className="brand-name">Limadata</div>
+            <div className="brand-sub">SEO Portal</div>
+          </div>
         </div>
 
         <div className="sidebar-section-label">Active Client</div>
@@ -483,16 +485,16 @@ export default function Dashboard() {
               <ResponsiveContainer width="100%" height={220}>
                 <AreaChart data={data.trend}>
                   <defs>
-                    <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#2A6B5E" stopOpacity={0.15}/><stop offset="95%" stopColor="#2A6B5E" stopOpacity={0}/></linearGradient>
-                    <linearGradient id="gi" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#C9A96E" stopOpacity={0.12}/><stop offset="95%" stopColor="#C9A96E" stopOpacity={0}/></linearGradient>
+                    <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#1A73E8" stopOpacity={0.15}/><stop offset="95%" stopColor="#1A73E8" stopOpacity={0}/></linearGradient>
+                    <linearGradient id="gi" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#34A853" stopOpacity={0.12}/><stop offset="95%" stopColor="#34A853" stopOpacity={0}/></linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#EDE6D8"/>
-                  <XAxis dataKey="date" tick={{fill:"#9A9080",fontSize:10}}/>
-                  <YAxis yAxisId="l" tick={{fill:"#9A9080",fontSize:10}}/>
-                  <YAxis yAxisId="r" orientation="right" tick={{fill:"#9A9080",fontSize:10}}/>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#F1F3F4"/>
+                  <XAxis dataKey="date" tick={{fill:"#5F6368",fontSize:10}}/>
+                  <YAxis yAxisId="l" tick={{fill:"#5F6368",fontSize:10}}/>
+                  <YAxis yAxisId="r" orientation="right" tick={{fill:"#5F6368",fontSize:10}}/>
                   <Tooltip contentStyle={TT}/>
-                  <Area yAxisId="l" type="monotone" dataKey="clicks" stroke="#2A6B5E" fill="url(#gc)" strokeWidth={2} name="Clicks"/>
-                  <Area yAxisId="r" type="monotone" dataKey="impressions" stroke="#C9A96E" fill="url(#gi)" strokeWidth={2} name="Impressions"/>
+                  <Area yAxisId="l" type="monotone" dataKey="clicks" stroke="#1A73E8" fill="url(#gc)" strokeWidth={2} name="Clicks"/>
+                  <Area yAxisId="r" type="monotone" dataKey="impressions" stroke="#34A853" fill="url(#gi)" strokeWidth={2} name="Impressions"/>
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -503,11 +505,11 @@ export default function Dashboard() {
                 <div className="card-title">CTR Over Time</div>
                 <ResponsiveContainer width="100%" height={160}>
                   <LineChart data={data.trend}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#EDE6D8"/>
-                    <XAxis dataKey="date" tick={{fill:"#9A9080",fontSize:10}}/>
-                    <YAxis tick={{fill:"#9A9080",fontSize:10}} unit="%"/>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#F1F3F4"/>
+                    <XAxis dataKey="date" tick={{fill:"#5F6368",fontSize:10}}/>
+                    <YAxis tick={{fill:"#5F6368",fontSize:10}} unit="%"/>
                     <Tooltip contentStyle={TT}/>
-                    <Line type="monotone" dataKey="ctr" stroke="#2A6B5E" strokeWidth={2} dot={false} name="CTR %"/>
+                    <Line type="monotone" dataKey="ctr" stroke="#1A73E8" strokeWidth={2} dot={false} name="CTR %"/>
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -516,11 +518,11 @@ export default function Dashboard() {
                 <div className="card-title">Avg Position Over Time</div>
                 <ResponsiveContainer width="100%" height={160}>
                   <LineChart data={data.trend}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#EDE6D8"/>
-                    <XAxis dataKey="date" tick={{fill:"#9A9080",fontSize:10}}/>
-                    <YAxis reversed tick={{fill:"#9A9080",fontSize:10}}/>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#F1F3F4"/>
+                    <XAxis dataKey="date" tick={{fill:"#5F6368",fontSize:10}}/>
+                    <YAxis reversed tick={{fill:"#5F6368",fontSize:10}}/>
                     <Tooltip contentStyle={TT}/>
-                    <Line type="monotone" dataKey="position" stroke="#C9A96E" strokeWidth={2} dot={false} name="Avg Position"/>
+                    <Line type="monotone" dataKey="position" stroke="#34A853" strokeWidth={2} dot={false} name="Avg Position"/>
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -565,11 +567,11 @@ export default function Dashboard() {
                 <div className="card-eyebrow">Traffic Breakdown</div><div className="card-title">Top Countries</div>
                 <ResponsiveContainer width="100%" height={160}>
                   <BarChart data={(data.byCountry||[]).slice(0,7)} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#EDE6D8"/>
-                    <XAxis type="number" tick={{fill:"#9A9080",fontSize:10}}/>
-                    <YAxis type="category" dataKey="country" tick={{fill:"#9A9080",fontSize:9}} width={70}/>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#F1F3F4"/>
+                    <XAxis type="number" tick={{fill:"#5F6368",fontSize:10}}/>
+                    <YAxis type="category" dataKey="country" tick={{fill:"#5F6368",fontSize:9}} width={70}/>
                     <Tooltip contentStyle={TT}/>
-                    <Bar dataKey="clicks" fill="#C9A96E" radius={[0,4,4,0]} name="Clicks"/>
+                    <Bar dataKey="clicks" fill="#34A853" radius={[0,4,4,0]} name="Clicks"/>
                   </BarChart>
                 </ResponsiveContainer>
                 <Table cols={[
